@@ -1,4 +1,7 @@
 
+import 'package:api_client/http/http.dart';
+import 'package:api_client/models/enums/error_keys.dart';
+
 class ApiException implements Exception {
   // class which creates an exception when the response is false and an error key is set.
 
@@ -20,11 +23,10 @@ class ApiException implements Exception {
 
 
   ApiException(this.response){
-    errorkey = ErrorKey.values.firstwhere(
-        (ErrorKey f ) = > f.toString() == 'ErrorKey.' + response.json['errorKey']
-    orElse: () => null
-    );
-    
+    errorKey = ErrorKey.values.firstWhere((ErrorKey f) => f.toString()
+        == 'ErrorKey.' + response.json['errorKey'],
+        orElse: () => null);
+
     final String message = response.json['message'];
     if (message?.isNotEmpty ?? false) {
     errorMessage = response.json['message'].toString();
