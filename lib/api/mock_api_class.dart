@@ -1,0 +1,2 @@
+//in this folder the different subclasses for endpoints should be created in each seperate class.
+// So if we per example have an account screen on the app, we need an api class here to make calls for that class to the back end.export '  ';

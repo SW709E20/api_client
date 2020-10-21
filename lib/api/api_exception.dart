@@ -1,0 +1,44 @@
+
+class ApiException implements Exception {
+  // class which creates an exception when the response is false and an error key is set.
+
+  /// Response involved in the exception
+  final Response response;
+
+  /// The error key derived from the response
+  ErrorKey errorKey = ErrorKey.NoError;
+
+  /// The message describing the error
+  String errorMessage;
+
+  /// The details of the error that happened, most of the time it is empty
+  String errorDetails;
+
+  @override
+  String toString() => '[ApiException]: ${response.json['errorKey']}';
+
+
+
+  ApiException(this.response){
+    errorkey = ErrorKey.values.firstwhere(
+        (ErrorKey f ) = > f.toString() == 'ErrorKey.' + response.json['errorKey']
+    orElse: () => null
+    );
+    
+    final String message = response.json['message'];
+    if (message?.isNotEmpty ?? false) {
+    errorMessage = response.json['message'].toString();
+    } else {
+    errorMessage = 'Something went wrong.';
+    }
+
+    final String details = response.json['details'];
+    if (details?.isNotEmpty ?? false) {
+    errorDetails = response.json['details'];
+    } else {
+    errorDetails = '';
+    }
+  }
+
+
+}
